@@ -8,14 +8,21 @@
 <body>
     <?php
     $ex = array(26,37,88,1111,3233);
-    for ($i =0;  $i < 1337; $i++) {
-    if (in_array($i,$ex,true)) {
-    echo"";
+    for ($i =0;  $i < 100; $i++) {
+    if($i <= 20){
+    echo"<i>$i</i> <br>";
+    } 
+    if($i <=50 && $i >25){
+    echo"<u> $i </u> <br>";
     }
-    else{
+    if($i<= 25 && $i >19) {
     echo"$i <br>";
     }
+    if($i>=50){
+    echo"$i <br>";
     }
+   }
+    
 ?>
 </body>
 </html>
