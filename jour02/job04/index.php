@@ -7,21 +7,20 @@
 </head>
 <body>
     <?php
-    $ex = array(26,37,88,1111,3233);
-    for ($i =0;  $i < 100; $i++) {
-    if($i <= 20){
-    echo"<i>$i</i> <br>";
-    } 
-    if($i <=50 && $i >25){
-    echo"<u> $i </u> <br>";
+    for ($i =0;  $i < 100; $i++)
+    {
+    if($i%3==0 && $i%5== 0){
+    echo"FizzBuzz <br>";
     }
-    if($i<= 25 && $i >19) {
+    elseif($i%3 == 0){
+    echo"fizz<br>";
+    }
+    elseif($i%5==0){
+    echo"Buzz<br>";
+    }
+   else{
     echo"$i <br>";
     }
-    if($i>=50){
-    echo"$i <br>";
-    }
-   
    }
     
 ?>
