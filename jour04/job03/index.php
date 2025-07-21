@@ -11,26 +11,11 @@ Name: <input type="text" name="name"><br>
 E-mail: <input type="text" name="email"><br>
 <input type="submit">
 </form>
-
-<table>
-<tr>
-    <th>Argument</th>
-    <th>Valeur</th>
-</tr>
-<tr>
-<th>Name</th>
-<th><?php echo $_POST["name"]; ?></th>
-</tr>
-<tr>
-    <th>e-mail</th>
-    <th><?php echo $_POST["email"]; ?></th>
-</tr>
-
-</table>
     
 </body>
 
 <?php
+echo count($_POST);
 
 
 ?>
