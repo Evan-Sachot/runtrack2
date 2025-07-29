@@ -35,6 +35,10 @@ if (!empty($_GET['button'])){
     }
     $_SESSION['tour'] = $_SESSION['tour'] == 1 ? 2 : 1;
     }
+    if (draw($_SESSION['grille'])) {
+        echo "<h2>Match nul !</h2>";
+        session_destroy();
+    }
 }
 if (isset($_GET['reset'])) {
     $_SESSION['grille'] = array(0,0,0,0,0,0,0,0,0);
@@ -43,6 +47,14 @@ if (isset($_GET['reset'])) {
     $_SESSION['joueur2'] = 0;
  header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
     exit();
+}
+function draw($grille) {
+    foreach ($grille as $case) {
+        if ($case == 0) {
+            return false;
+        }
+    }
+    return true;
 }
 function victoire ($grille, $joueur) {
     $combinaisons = [
@@ -68,6 +80,12 @@ function victoire ($grille, $joueur) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body{
+            
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
         button {
             width: 80px;
             height: 80px;
@@ -76,14 +94,12 @@ function victoire ($grille, $joueur) {
             background-color: #fff;
             border: 2px solid #000;
             cursor: pointer;
+            border: none;
         }
         button:hover {
             background-color: #f0f0f0;
         }
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
+        
         table {
             margin: 0 auto;
             border-collapse: collapse;
@@ -104,9 +120,23 @@ function victoire ($grille, $joueur) {
         td.taken {
             cursor: not-allowed;
         }
+        .reset-button{
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .reset-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
+    <h2>c'est au tour du joueur <?php echo $_SESSION['tour']; ?></h2>
     <form method="get">
 <table>
 <?php
@@ -128,7 +158,7 @@ for ($i = 0; $i < 9; $i++) {
 }
 ?>
 </table>
-<button type="submit" name="reset" value="1">Reset</button>
+<button class="reset-button" type="submit" name="reset" value="1">Reset</button>
 </form>
    
   
