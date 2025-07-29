@@ -2,25 +2,8 @@
 <?php 
 
  session_start();
-if (!isset($_COOKIE['prenom'])) {
-    $_COOKIE['prenom'] = "";
-}
-if (isset($_GET['deco'])) {
-    setcookie("prenom", "", time() - 3600);
-    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
-    exit();
-}
-if (isset($_GET["prenom"]) && !empty($_GET["prenom"])) {
-    $prenom = htmlspecialchars($_GET["prenom"]);
-    setcookie("prenom", $prenom, time() + 3600);
-    
-}
 
-// if (isset($_GET['reset'])) {
-//     file_put_contents($listenom, "");
-//     header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
-//     exit();
-// }
+
 
 ?>
 <!DOCTYPE html>
@@ -32,6 +15,7 @@ if (isset($_GET["prenom"]) && !empty($_GET["prenom"])) {
 </head>
 <body>
     <form method="get">
+<table>
 <tr>
     <td><button type="submit" value="-"></button></td>
     <td><button type="submit" value="-"></button></td>
@@ -47,7 +31,7 @@ if (isset($_GET["prenom"]) && !empty($_GET["prenom"])) {
     <td><button type="submit" value="-"></button></td>
     <td><button type="submit" value="-"></button></td>
 </tr>
-
+</table>
 </form>
    
   

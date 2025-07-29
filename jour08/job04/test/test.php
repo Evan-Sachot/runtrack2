@@ -2,31 +2,25 @@
 <?php 
 
  session_start();
-
 if (!isset($_COOKIE['prenom'])) {
     $_COOKIE['prenom'] = "";
 }
-function logout() {
+if (isset($_GET['deco'])) {
     setcookie("prenom", "", time() - 3600);
     header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
     exit();
 }
-if (isset($_GET['deco'])) {
-    logout();
-}
-function login(string $prenom) {
-    $prenom = htmlspecialchars($prenom);
+if (isset($_GET["prenom"]) && !empty($_GET["prenom"])) {
+    $prenom = htmlspecialchars($_GET["prenom"]);
     setcookie("prenom", $prenom, time() + 3600);
     
-   
 }
-if (isset($_GET["prenom"]) && !empty($_GET["prenom"])) {
-   login($_GET["prenom"]);
-}
-$prenom = $_COOKIE['prenom'] ?? null;
 var_dump($_COOKIE['prenom']);
-
-
+// if (isset($_GET['reset'])) {
+//     file_put_contents($listenom, "");
+//     header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+//     exit();
+// }
 
 ?>
 <!DOCTYPE html>
@@ -53,4 +47,3 @@ var_dump($_COOKIE['prenom']);
   
 </body>
 </html>
-

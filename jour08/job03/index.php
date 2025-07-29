@@ -8,7 +8,7 @@ if (!isset($_SESSION['prenom'])) {
 }
 if (isset($_GET['reset'])) {
     $_SESSION["prenom"] = [];
-    // Rediriger pour éviter resoumission
+    
     header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
     exit();
 }
