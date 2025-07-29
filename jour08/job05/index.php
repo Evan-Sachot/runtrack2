@@ -2,11 +2,13 @@
 <?php 
 
  session_start();
+ if (!isset($_SESSION['grille'])){
 $_SESSION['grille'] = array(0,0,0,0,0,0,0,0,0);
 
 $_SESSION['joueur1']= 0;
 $_SESSION['joueur2']= 0;
 $_SESSION['tour']= 1;
+ }
 $jr = 1;
 $jr2 = 2;
 
@@ -22,13 +24,41 @@ if (empty($_SESSION['joueur2'])) {
 if (empty($_SESSION['tour'])) {
     $_SESSION['tour'] = 1;
 }
-if (!empty($_GET['button1'])){
-    $jouer = $_GET['button1']-1;
+if (!empty($_GET['button'])){
+    $jouer = $_GET['button']-1;
     if ($_SESSION['grille'][$jouer] == 0) {
         $_SESSION['grille'][$jouer] = $_SESSION['tour'];
+       
+        if (victoire($_SESSION['grille'],$_SESSION['tour'])){
+        echo "<h2>joueur".$_SESSION['tour']." a gagné !</h2>";
+        session_destroy();
+    }
+    $_SESSION['tour'] = $_SESSION['tour'] == 1 ? 2 : 1;
     }
 }
-
+if (isset($_GET['reset'])) {
+    $_SESSION['grille'] = array(0,0,0,0,0,0,0,0,0);
+    $_SESSION['tour'] = 1;
+    $_SESSION['joueur1'] = 0;
+    $_SESSION['joueur2'] = 0;
+ header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+    exit();
+}
+function victoire ($grille, $joueur) {
+    $combinaisons = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+        [0, 4, 8], [2, 4, 6] 
+    ];
+    foreach ($combinaisons as $comb) {
+        if ($grille[$comb[0]] == $joueur && 
+            $grille[$comb[1]] == $joueur && 
+            $grille[$comb[2]] == $joueur) {
+            return true;
+        }
+    }
+    return false;
+}   
 
 ?>
 <!DOCTYPE html>
@@ -49,6 +79,10 @@ if (!empty($_GET['button1'])){
         }
         button:hover {
             background-color: #f0f0f0;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
         table {
             margin: 0 auto;
@@ -75,22 +109,26 @@ if (!empty($_GET['button1'])){
 <body>
     <form method="get">
 <table>
-<tr>
-    <td><button type="submit" name="button1" value="-"></button></td>
-    <td><button type="submit" name="button2" value="-"></button></td>
-    <td><button type="submit" name="button3" value="-"></button></td>
-</tr>
-<tr>
-    <td><button type="submit" name="button4" value="-"></button></td>
-    <td><button type="submit" name="button5" value="-"></button></td>
-    <td><button type="submit" name="button6" value="-"></button></td>
-</tr>
-<tr>
-    <td><button type="submit" name="button7" value="-"></button></td>
-    <td><button type="submit" name="button8" value="-"></button></td>
-    <td><button type="submit" name="button9" value="-"></button></td>
-</tr>
+<?php
+for ($i = 0; $i < 9; $i++) {
+    if ($i % 3 == 0) {
+        echo "<tr>";
+    }
+    
+    if ($_SESSION['grille'][$i] == 0) {
+        echo "<td><button type='submit' name='button' value='".($i+1)."'> </button></td>";
+    } else {
+        $symbol = $_SESSION['grille'][$i] == 1 ? 'X' : 'O';
+        echo "<td class='taken'>$symbol</td>";
+    }
+    
+    if ($i % 3 == 2) {
+        echo "</tr>";
+    }
+}
+?>
 </table>
+<button type="submit" name="reset" value="1">Reset</button>
 </form>
    
   
