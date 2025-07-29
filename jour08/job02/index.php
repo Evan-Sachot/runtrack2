@@ -13,18 +13,19 @@
 </html>
 <?php 
 
- session_start();
+//  session_start();
 
-  if (!isset($_SESSION['count'])) {
-    $_SESSION['count'] = 1;
-  } else {
-    $_SESSION['count']++;
-  }
-  
-    $count = $_SESSION['count'];
-
-  echo $count;
-  if (isset($_GET['reset'])) {
-    session_unset();
-  }
+if (isset($_COOKIE['nbvisites'])){
+  setcookie("nbvisites",$_COOKIE["nbvisites"]+1);
+echo  $_COOKIE['nbvisites'] + 1;
+}
+else {
+  setcookie("nbvisites",1);
+  echo '1';
+}
+if (isset($_GET['reset'])) {
+    setcookie("nbvisites", 0, time() - 3600); // Expire the cookie
+    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+    exit();
+}
 ?>
