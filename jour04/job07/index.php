@@ -30,11 +30,21 @@ echo "\<br>";
 }
 
 for ($i = 0; $i < $hauteur; $i++){
+  if ($i == $hauteur-1){
+    echo "|";
+    echo str_repeat('_', $largeur+$largeur);
+    echo "|";
+  }
+  else {
+  
 echo "|";
 echo str_repeat(' ', $largeur+$largeur);
 echo "|<br>";
+
+  }
 }
-echo str_repeat("_", $largeur+$largeur);
+
+
 }
 ?>
 
