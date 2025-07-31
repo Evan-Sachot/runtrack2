@@ -105,4 +105,8 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-SELECT MAX(capacite) as capacite_max, salles.nom as nom_salle, etage.nom as nom_etage FROM salles inner join etage on salles.id_etage = etage.id
+SELECT if (salles.capacite = (select MAX(capacite) from salles), 'biggest room', salles.nom) as nom_salle,
+ etage.nom as nom_etage, salles.capacite as capacite FROM salles
+
+ inner join etage on salles.id_etage = etage.id
+ where salles.capacite = (select MAX(capacite) from salles)

@@ -2,7 +2,7 @@
 $servname = "localhost"; $user = "root"; $pass = ""; $dbname = "jour09";
 
 $conn = new mysqli($servname, $user, $pass, $dbname);
-$sql = "SELECT SUM(capacite) as total FROM salles";
+$sql = "SELECT SUM(superficie) as total FROM etage";
 $result = $conn->query($sql);
 var_dump($result);
 if ($result->num_rows > 0) {
