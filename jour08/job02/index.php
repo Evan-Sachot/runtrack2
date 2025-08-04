@@ -24,7 +24,7 @@ else {
   echo '1';
 }
 if (isset($_GET['reset'])) {
-    setcookie("nbvisites", 0, time() - 3600); // Expire the cookie
+    setcookie("nbvisites", 0, time() - 3600); 
     header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
     exit();
 }
