@@ -23,16 +23,16 @@ $largeur = (int)$_GET["large"];
 $hauteur = (int)$_GET["haut"];
 if($largeur>0 && $hauteur>0){
 for($i=0; $i< $largeur; $i++) {
-echo str_repeat(' ', intval($largeur-$i));
+echo str_repeat(' ', intval($largeur-$i));
 echo "/";
-echo str_repeat('_', intval($i));
+echo str_repeat('_', intval($i+$i));
 echo "\<br>";
 }
 
 for ($i = 0; $i < $hauteur; $i++){
   if ($i == $hauteur-1){
     echo "|";
-    echo str_repeat('_', $largeur+$largeur);
+    echo str_repeat('_', $largeur+$largeur); 
     echo "|";
   }
   else {
