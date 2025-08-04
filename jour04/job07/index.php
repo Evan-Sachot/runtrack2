@@ -25,7 +25,7 @@ if($largeur>0 && $hauteur>0){
 for($i=0; $i< $largeur; $i++) {
 echo str_repeat(' ', intval($largeur-$i));
 echo "/";
-echo str_repeat('_', intval($i+$i));
+echo str_repeat('_', intval($i));
 echo "\<br>";
 }
 
